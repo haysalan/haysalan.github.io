@@ -1,0 +1,371 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>TLS指纹-JA3 | Faceless Blog</title><meta name="keywords" content="TLS/SSL,JA3"><meta name="author" content="Alan Hays"><meta name="copyright" content="Alan Hays"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="TLS指纹-JA3"><meta name="application-name" content="TLS指纹-JA3"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="TLS指纹-JA3"><meta property="og:url" content="https://haysalan.github.io/posts/1792.html"><meta property="og:site_name" content="Faceless Blog"><meta property="og:description" content="# 官方解释 TLS 及其前身 SSL 用于为常见应用程序和恶意软件加密通信，以确保数据安全，因此可以隐藏在噪音中。要启动 TLS 会话，客户端将在 TCP 3 次握手之后发送 TLS 客户端 Hello 数据包。此数据包及其生成方式取决于构建客户端应用程序时使用的包和方法。服务器如果接受 TLS"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://cn.bing.com/th?id=OHR.IcelandBeach_ZH-CN1632329693_1366x768.jpg&amp;_r_=012950e9-2b9c-7926-b825-71a0400a6585"><meta property="article:author" content="Alan Hays"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://cn.bing.com/th?id=OHR.IcelandBeach_ZH-CN1632329693_1366x768.jpg&amp;_r_=012950e9-2b9c-7926-b825-71a0400a6585"><meta name="description" content="# 官方解释 TLS 及其前身 SSL 用于为常见应用程序和恶意软件加密通信，以确保数据安全，因此可以隐藏在噪音中。要启动 TLS 会话，客户端将在 TCP 3 次握手之后发送 TLS 客户端 Hello 数据包。此数据包及其生成方式取决于构建客户端应用程序时使用的包和方法。服务器如果接受 TLS"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://haysalan.github.io/posts/1792"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: undefined,
+  diytitle: undefined,
+  LA51: undefined,
+  greetingBox: {"enable":true,"default":"晚上好👋","list":[{"greeting":"晚安😴","startTime":0,"endTime":5},{"greeting":"早上好鸭👋, 祝你一天好心情！","startTime":6,"endTime":9},{"greeting":"上午好👋, 状态很好，鼓励一下～","startTime":10,"endTime":10},{"greeting":"11点多啦, 在坚持一下就吃饭啦～","startTime":11,"endTime":11},{"greeting":"午安👋, 宝贝","startTime":12,"endTime":14},{"greeting":"🌈充实的一天辛苦啦！","startTime":14,"endTime":18},{"greeting":"19点喽, 奖励一顿丰盛的大餐吧🍔。","startTime":19,"endTime":19},{"greeting":"晚上好👋, 在属于自己的时间好好放松😌~","startTime":20,"endTime":24}]},
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Alan Hays","link":"链接: ","source":"来源: Faceless Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: {"enable":true,"delay":100,"shiftDelay":200},
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'Faceless Blog',
+  title: 'TLS指纹-JA3',
+  postAI: '',
+  pageFillDescription: ' 官方解释,  JA3 原理,  TLS 检测判断,  TLS 检测原理,  未检测 TLS,  检测了 TLS,  过校验示例官方解释及其前身用于为常见应用程序和恶意软件加密通信以确保数据安全因此可以隐藏在噪音中要启动会话客户端将在次握手之后发送客户端数据包此数据包及其生成方式取决于构建客户端应用程序时使用的包和方法服务器如果接受连接将使用基于服务器端库和配置以及中的详细信息制定的数据包进行响应由于协商以明文形式传输因此可以使用数据包中的详细信息来指纹和识别客户端应用程序官方介绍指纹原理收集以下字段的字节的十进制值版本接受的密码扩展列表椭圆曲线和椭圆曲线格式然后它按顺序将这些值连接在一起使用分隔每个字段使用分隔每个字段中的每个值字段顺序如下密码扩展椭圆曲线椭圆曲线点格式例如果客户端中没有扩展则字段留空例然后对这些字符串进行哈希处理以生成易于使用和共享的个字符的指纹这是客户端指纹我们还需要引入一些代码来解释的生成随机扩展和维持可扩展性如此处所述将此用作防止生态系统中扩展性失败的机制完全忽略这些值以确保使用的程序仍可以使用单个哈希进行标识检测判断检测原理抓包工具只能查看指纹不能以此判断服务器检测了在协议中协议是用来在客户端和服务器之间建立安全连接的这个连接过程中就会生成指纹只要是协议必定会生成指纹检测是在服务端进行的唯一判断是否检测的手段就是测试和猜测未检测验证请求头顺序检测生成可直接访问检测了调试工具有可响应的就不行都不行就浏览器可以过校验示例的和相关的指纹修改案例笔者整理的一些案例指纹点击下载',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-01 00:00:00',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="referrer" content="no-referrer"><meta name="generator" content="Hexo 6.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://imgsrc.baidu.com/forum/pic/item/9213b07eca806538fb58ba27d1dda144ad348250.png"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://alanhays.gitee.io/facelessjsvmp/" title="facelessjsvmp"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://imgsrc.baidu.com/forum/pic/item/9213b07eca806538fb58ba27d1dda144ad348250.png" alt="facelessjsvmp"/><span class="back-menu-item-text">facelessjsvmp</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">博客</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://alanhays.gitee.io" title="Faceless Blog"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://imgsrc.baidu.com/forum/pic/item/9213b07eca806538fb58ba27d1dda144ad348250.png" alt="Faceless Blog"/><span class="back-menu-item-text">Faceless Blog</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">Faceless Blog</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a><div id="he-plugin-simple"></div><script>var WIDGET = {
+  "CONFIG": {
+    "modules": "0124",
+    "background": "2",
+    "tmpColor": "FFFFFF",
+    "tmpSize": "16",
+    "cityColor": "FFFFFF",
+    "citySize": "16",
+    "aqiColor": "E8D87B",
+    "aqiSize": "16",
+    "weatherIconSize": "24",
+    "alertIconSize": "18",
+    "padding": "10px 10px 10px 10px",
+    "shadow": "0",
+    "language": "auto",
+    "borderRadius": "20",
+    "fixed": "true",
+    "vertical": "top",
+    "horizontal": "left",
+    "left": "20",
+    "top": "7.1",
+    "key": "df245676fb434a0691ead1c63341cd94"
+  }
+}
+</script><link rel="stylesheet" href="https://widget.qweather.net/simple/static/css/he-simple.css?v=1.4.0"/><script src="https://widget.qweather.net/simple/static/js/he-simple.js?v=1.4.0"></script></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button only-home" id="travellings_button" title="随机前往一个开往项目网站"><a class="site-page" onclick="anzhiyu.totraveling()" title="随机前往一个开往项目网站" href="javascript:void(0);" rel="external nofollow" data-pjax-state="external"><i class="anzhiyufont anzhiyu-icon-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://imgsrc.baidu.com/forum/pic/item/d788d43f8794a4c2e416201d48f41bd5ad6e39cb.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://imgsrc.baidu.com/forum/pic/item/d788d43f8794a4c2e416201d48f41bd5ad6e39cb.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://imgsrc.baidu.com/forum/pic/item/63d9f2d3572c11df59eb7815252762d0f703c2cb.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://imgsrc.baidu.com/forum/pic/item/63d9f2d3572c11df59eb7815252762d0f703c2cb.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AST/" style="font-size: 1.05rem;">AST<sup>3</sup></a><a href="/tags/Actions/" style="font-size: 1.05rem;">Actions<sup>2</sup></a><a href="/tags/GitHub/" style="font-size: 1.05rem;">GitHub<sup>3</sup></a><a href="/tags/JA3/" style="font-size: 1.05rem;">JA3<sup>1</sup></a><a href="/tags/JA4/" style="font-size: 1.05rem;">JA4<sup>1</sup></a><a href="/tags/Native/" style="font-size: 1.05rem;">Native<sup>1</sup></a><a href="/tags/SO/" style="font-size: 1.05rem;">SO<sup>1</sup></a><a href="/tags/TLS-SSL/" style="font-size: 1.05rem;">TLS/SSL<sup>2</sup></a><a href="/tags/andorid/" style="font-size: 1.05rem;">andorid<sup>1</sup></a><a href="/tags/build/" style="font-size: 1.05rem;">build<sup>1</sup></a><a href="/tags/charles/" style="font-size: 1.05rem;">charles<sup>1</sup></a><a href="/tags/fastboot/" style="font-size: 1.05rem;">fastboot<sup>1</sup></a><a href="/tags/frida/" style="font-size: 1.05rem;">frida<sup>3</sup></a><a href="/tags/hexo/" style="font-size: 1.05rem;">hexo<sup>1</sup></a><a href="/tags/jnitrace/" style="font-size: 1.05rem;">jnitrace<sup>1</sup></a><a href="/tags/magisk/" style="font-size: 1.05rem;">magisk<sup>2</sup></a><a href="/tags/nodejs/" style="font-size: 1.05rem;">nodejs<sup>1</sup></a><a href="/tags/objection/" style="font-size: 1.05rem;">objection<sup>1</sup></a><a href="/tags/root/" style="font-size: 1.05rem;">root<sup>1</sup></a><a href="/tags/windows/" style="font-size: 1.05rem;">windows<sup>1</sup></a><a href="/tags/%E5%85%A5%E9%97%A8%E7%BA%A7/" style="font-size: 1.05rem;">入门级<sup>2</sup></a><a href="/tags/%E5%8A%A0%E9%80%9F%E4%B9%90/" style="font-size: 1.05rem;">加速乐<sup>1</sup></a><a href="/tags/%E6%80%9D%E8%B7%AF/" style="font-size: 1.05rem;">思路<sup>1</sup></a><a href="/tags/%E6%8A%93%E5%8C%85/" style="font-size: 1.05rem;">抓包<sup>1</sup></a><a href="/tags/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/" style="font-size: 1.05rem;">疑难杂症<sup>1</sup></a><a href="/tags/%E8%A7%A3%E6%B7%B7%E6%B7%86/" style="font-size: 1.05rem;">解混淆<sup>3</sup></a><a href="/tags/%E8%AF%81%E4%B9%A6/" style="font-size: 1.05rem;">证书<sup>1</sup></a><a href="/tags/%E8%B5%84%E6%BA%90/" style="font-size: 1.05rem;">资源<sup>1</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/02/"><span class="card-archive-list-date">二月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/01/"><span class="card-archive-list-date">一月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/12/"><span class="card-archive-list-date">十二月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">7</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/11/"><span class="card-archive-list-date">十一月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/10/"><span class="card-archive-list-date">十月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">6</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/09/"><span class="card-archive-list-date">九月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div><div class="console-btn-item" id="consoleKeyboard" onclick="anzhiyu.keyboardToggle()" title="快捷键开关"><a class="keyboard-switch"><i class="anzhiyufont anzhiyu-icon-keyboard"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BB%8F%E9%AA%8C%E6%95%99%E7%A8%8B/" itemprop="url">经验教程</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/TLS-SSL/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>TLS/SSL</span></a><a class="article-meta__tags" href="/tags/JA3/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>JA3</span></a></span></div></div><h1 class="post-title" itemprop="name headline">TLS指纹-JA3</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2023-10-21T00:38:54.000Z" title="发表于 2023-10-21 00:38:54">2023-10-21</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2024-04-01T00:00:00.000Z" title="更新于 2024-04-01 00:00:00">2024-04-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="leancloud_visitors" id="/posts/1792.html" data-flag-title="TLS指纹-JA3"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span class="leancloud-visitors-count" title="访问量"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为长沙"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>长沙</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="https://cn.bing.com/th?id=OHR.IcelandBeach_ZH-CN1632329693_1366x768.jpg&amp;_r_=012950e9-2b9c-7926-b825-71a0400a6585"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://haysalan.github.io/posts/1792.html"><header><a class="post-meta-categories" href="/categories/%E7%BB%8F%E9%AA%8C%E6%95%99%E7%A8%8B/" itemprop="url">经验教程</a><a href="/tags/TLS-SSL/" tabindex="-1" itemprop="url">TLS/SSL</a><a href="/tags/JA3/" tabindex="-1" itemprop="url">JA3</a><h1 id="CrawlerTitle" itemprop="name headline">TLS指纹-JA3</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">Alan Hays</span><time itemprop="dateCreated datePublished" datetime="2023-10-21T00:38:54.000Z" title="发表于 2023-10-21 00:38:54">2023-10-21</time><time itemprop="dateCreated datePublished" datetime="2024-04-01T00:00:00.000Z" title="更新于 2024-04-01 00:00:00">2024-04-01</time></header><h2 id="官方解释"><a class="markdownIt-Anchor" href="#官方解释">#</a> 官方解释</h2>
+<p>TLS 及其前身 SSL 用于为常见应用程序和恶意软件加密通信，以确保数据安全，因此可以隐藏在噪音中。要启动 TLS 会话，客户端将在 TCP 3 次握手之后发送 TLS 客户端 Hello 数据包。此数据包及其生成方式取决于构建客户端应用程序时使用的包和方法。服务器如果接受 TLS 连接，将使用基于服务器端库和配置以及 Client Hello 中的详细信息制定的 TLS Server Hello 数据包进行响应。由于 TLS 协商以明文形式传输，因此可以使用 TLS Client Hello 数据包中的详细信息来指纹和识别客户端应用程序。<br>
+<a target="_blank" rel="noopener" href="https://engineering.salesforce.com/open-sourcing-ja3-92c9e53c3c41/">官方介绍</a> | <a target="_blank" rel="noopener" href="https://github.com/FoxIO-LLC/ja3">JA3 指纹</a></p>
+<h2 id="ja3-原理"><a class="markdownIt-Anchor" href="#ja3-原理">#</a> JA3 原理</h2>
+<p>JA3 收集以下字段的字节的十进制值；SSL 版本、接受的密码、扩展列表、椭圆曲线和椭圆曲线格式。然后，它按顺序将这些值连接在一起，使用 “，” 分隔每个字段，使用 “-” 分隔每个字段中的每个值。<br>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.nlark.com/yuque/0/2023/webp/26634545/1697851217544-efd479ce-e2f9-4582-8895-e2efe95fe3f5.webp#averageHue=%23f0efee&amp;clientId=u9d6790ac-ed8c-4&amp;from=paste&amp;height=837&amp;id=u1dbfb620&amp;originHeight=1256&amp;originWidth=1354&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=594364&amp;status=done&amp;style=none&amp;taskId=u22261562-ea35-4516-8852-7a2c8ad84f0&amp;title=&amp;width=902.6666666666666" alt="0_QZ7tsC7MAET5lbLP.webp"><br>
+ 字段顺序如下：<br>
+SSLVersion，密码，扩展，椭圆曲线，椭圆曲线点格式<br>
+例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">769,47–53–5–10–49161–49162–49171–49172–50–56–19–4,0–10–11,23–24–25,0</span><br></pre></td></tr></table></figure>
+<p>如果客户端 Hello 中没有 SSL 扩展，则字段留空。<br>
+例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">769,4–5–10–9–100–98–3–6–19–18–99,,,</span><br></pre></td></tr></table></figure>
+<p>然后对这些字符串进行 MD5 哈希处理，以生成易于使用和共享的 32 个字符的指纹。这是 JA3 SSL 客户端指纹。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">769,47–53–5–10–49161–49162–49171–49172–50–56–19–4,0–10–11,23–24–25,0 → ada70206e40642a3e4461f35503241d5769,4–5–10–9–100–98–3–6–19–18–99,,,</span><br><span class="line">→ de350869b8c85de67a350c8d186f11e6</span><br></pre></td></tr></table></figure>
+<p>我们还需要引入一些代码来解释 Google 的 GREASE（生成随机扩展和维持可扩展性），<a target="_blank" rel="noopener" href="https://tools.ietf.org/html/draft-davidben-tls-grease-01">如此处</a>所述。Google 将此用作防止 TLS 生态系统中扩展性失败的机制。JA3 完全忽略这些值，以确保使用 GREASE 的程序仍可以使用单个 JA3 哈希进行标识。</p>
+<h2 id="tls-检测判断"><a class="markdownIt-Anchor" href="#tls-检测判断">#</a> TLS 检测判断</h2>
+<h3 id="tls-检测原理"><a class="markdownIt-Anchor" href="#tls-检测原理">#</a> TLS 检测原理</h3>
+<blockquote>
+<p>抓包工具 wireshark、charles 只能查看 TLS 指纹，不能以此判断服务器检测了 TLS。</p>
+</blockquote>
+<p>在 HTTPS 协议中，TLS 协议是用来在客户端和服务器之间建立安全连接的，这个连接过程中就会生成 TLS 指纹。只要是 HTTPS 协议，必定会生成 TLS 指纹。<br>
+检测 TLS 是在服务端进行的，<strong>唯一</strong>判断是否检测 TLS 的手段就是<strong>测试</strong>和<strong>猜测</strong>。</p>
+<h3 id="未检测-tls"><a class="markdownIt-Anchor" href="#未检测-tls">#</a> 未检测 TLS</h3>
+<ul>
+<li>验证请求头顺序</li>
+<li>检测 HTTP2.0</li>
+<li>curl 生成 code 可直接访问</li>
+<li>…</li>
+</ul>
+<h3 id="检测了-tls"><a class="markdownIt-Anchor" href="#检测了-tls">#</a> 检测了 TLS</h3>
+<ul>
+<li>curl、api 调试工具、js 有可响应的就 python 不行。</li>
+<li>curl、js 都不行就浏览器可以。</li>
+<li>…</li>
+</ul>
+<h2 id="过校验示例"><a class="markdownIt-Anchor" href="#过校验示例">#</a> 过校验示例</h2>
+<p>python 的 aiohttp | requests | httpx | scrapy 和 golang 相关的 ja3 指纹修改案例。<br>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.nlark.com/yuque/0/2023/png/26634545/1697867423544-d0cb481b-b803-4d8f-bc21-fec7ac4f18fd.png#averageHue=%23f4f2ef&amp;clientId=u44708746-5fd9-4&amp;from=paste&amp;height=101&amp;id=uc8e0d242&amp;originHeight=152&amp;originWidth=270&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=6334&amp;status=done&amp;style=none&amp;taskId=u48dd73f9-af7e-439c-8eae-ced91e6bee8&amp;title=&amp;width=180" alt="image.png"><br>
+ 笔者整理的一些案例：<br>
+<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1MEMMZTNg-6qmPrzprHVSVQ?pwd=k999">JA3 指纹（go/python）点击下载</a></p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://imgsrc.baidu.com/forum/pic/item/9213b07eca806538fb58ba27d1dda144ad348250.png" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://imgsrc.baidu.com/forum/pic/item/9213b07eca806538fb58ba27d1dda144ad348250.png" title="头像" alt="头像"></a><div class="post-copyright__author_name">Alan Hays</div><div class="post-copyright__author_desc">如无必要 勿增实体</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://haysalan.github.io/posts/1792.html">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://haysalan.github.io/posts/1792.html')">TLS指纹-JA3</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://imgsrc.baidu.com/forum/pic/item/d788d43f8794a4c2e416201d48f41bd5ad6e39cb.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://imgsrc.baidu.com/forum/pic/item/d788d43f8794a4c2e416201d48f41bd5ad6e39cb.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://imgsrc.baidu.com/forum/pic/item/63d9f2d3572c11df59eb7815252762d0f703c2cb.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://imgsrc.baidu.com/forum/pic/item/63d9f2d3572c11df59eb7815252762d0f703c2cb.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://haysalan.github.io/posts/1792.html"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=TLS指纹-JA3&amp;url=https://haysalan.github.io/posts/1792.html&amp;pic=https://cn.bing.com/th?id=OHR.IcelandBeach_ZH-CN1632329693_1366x768.jpg&amp;_r_=012950e9-2b9c-7926-b825-71a0400a6585" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://haysalan.github.io" target="_blank">Faceless Blog</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/TLS-SSL/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>TLS/SSL<span class="tagsPageCount">2</span></a><a class="post-meta__box__tags" href="/tags/JA3/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>JA3<span class="tagsPageCount">1</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://cn.bing.com/th?id=OHR.TajoRiver_ZH-CN1752559204_1366x768.jpg&amp;_r_=1d2bc987-e2a4-0b8f-c3c5-8e85e84feada" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/6066.html"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cn.bing.com/th?id=OHR.CastleCoch_ZH-CN0917284602_1366x768.jpg&amp;_r_=c45d0fb0-07c0-328f-64f1-5206060eee55" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">400行代码解混淆猿人学第二届第三题然后进行完美反编译</div></div></a></div><div class="next-post pull-right"><a href="/posts/50497.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cn.bing.com/th?id=OHR.SchwerinerSchloss_ZH-CN2390476345_1366x768.jpg&amp;_r_=6f94cfde-dd4b-37df-eae6-a1c603a4d4d7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">TLS指纹-JA4</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/posts/50497.html" title="TLS指纹-JA4"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cn.bing.com/th?id=OHR.SchwerinerSchloss_ZH-CN2390476345_1366x768.jpg&_r_=6f94cfde-dd4b-37df-eae6-a1c603a4d4d7" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2023-10-21</div><div class="title">TLS指纹-JA4</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="anzhiyufont anzhiyu-icon-comments"></i><span> 评论</span></div><div class="comment-randomInfo"><a onclick="anzhiyu.addRandomCommentInfo()" href="javascript:void(0)">匿名评论</a><a href="/privacy" style="margin-left: 4px">隐私政策</a></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div><div class="comment-barrage"></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://imgsrc.baidu.com/forum/pic/item/9213b07eca806538fb58ba27d1dda144ad348250.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">数据采集、逆向安全、网络杂谈</div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/"><h1 class="author-info__name">Alan Hays</h1><div class="author-info__desc">如无必要 勿增实体</div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/Alanhays" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a><a class="social-icon faa-parent animated-hover" href="https://space.bilibili.com/247999712" target="_blank" title="BiliBili"><i class="anzhiyufont anzhiyu-icon-bilibili"></i></a></div></div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://imgsrc.baidu.com/forum/pic/item/2934349b033b5bb5d4b3e6c870d3d539b600bca4.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E8%A7%A3%E9%87%8A"><span class="toc-number">1.</span> <span class="toc-text"> 官方解释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ja3-%E5%8E%9F%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text"> JA3 原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tls-%E6%A3%80%E6%B5%8B%E5%88%A4%E6%96%AD"><span class="toc-number">3.</span> <span class="toc-text"> TLS 检测判断</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tls-%E6%A3%80%E6%B5%8B%E5%8E%9F%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text"> TLS 检测原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AA%E6%A3%80%E6%B5%8B-tls"><span class="toc-number">3.2.</span> <span class="toc-text"> 未检测 TLS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E4%BA%86-tls"><span class="toc-number">3.3.</span> <span class="toc-text"> 检测了 TLS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%87%E6%A0%A1%E9%AA%8C%E7%A4%BA%E4%BE%8B"><span class="toc-number">4.</span> <span class="toc-text"> 过校验示例</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/57474.html" title="基于Hexo框架语雀文章博客模板"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cn.bing.com/th?id=OHR.TajoRiver_ZH-CN1752559204_1366x768.jpg&amp;_r_=1d2bc987-e2a4-0b8f-c3c5-8e85e84feada" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于Hexo框架语雀文章博客模板"/></a><div class="content"><a class="title" href="/posts/57474.html" title="基于Hexo框架语雀文章博客模板">基于Hexo框架语雀文章博客模板</a><time datetime="2024-02-15T12:28:23.000Z" title="发表于 2024-02-15 12:28:23">2024-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/52888.html" title="精选网络资源&amp;疑难杂症记录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cn.bing.com/th?id=OHR.IcelandBeach_ZH-CN1632329693_1366x768.jpg&amp;_r_=c363248d-b345-3921-5470-b6b2aab82392" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="精选网络资源&amp;疑难杂症记录"/></a><div class="content"><a class="title" href="/posts/52888.html" title="精选网络资源&amp;疑难杂症记录">精选网络资源&amp;疑难杂症记录</a><time datetime="2024-01-09T01:49:31.000Z" title="发表于 2024-01-09 01:49:31">2024-01-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/50605.html" title="破解tap验证和绕过实名认证"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cn.bing.com/th?id=OHR.CaribouChristmas_ZH-CN6264028572_1366x768.jpg&amp;_r_=13cbd99d-87a9-c8d4-d43b-35502d964600" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="破解tap验证和绕过实名认证"/></a><div class="content"><a class="title" href="/posts/50605.html" title="破解tap验证和绕过实名认证">破解tap验证和绕过实名认证</a><time datetime="2024-01-03T10:13:01.000Z" title="发表于 2024-01-03 10:13:01">2024-01-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/38694.html" title="Build Nodejs 环境配置"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cn.bing.com/th?id=OHR.MountainDayChina_ZH-CN6894169616_1366x768.jpg&amp;_r_=dc92cfb4-e9bf-ae08-b391-60933d7fbcb0" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Build Nodejs 环境配置"/></a><div class="content"><a class="title" href="/posts/38694.html" title="Build Nodejs 环境配置">Build Nodejs 环境配置</a><time datetime="2024-01-03T07:34:02.000Z" title="发表于 2024-01-03 07:34:02">2024-01-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/60184.html" title="学习逆向过程中的一些问题与其解决办法"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cn.bing.com/th?id=OHR.LagoPehoe_ZH-CN3367356273_1366x768.jpg&amp;_r_=c63edbf1-3726-c8e4-207b-0ac6d23b1fb1" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="学习逆向过程中的一些问题与其解决办法"/></a><div class="content"><a class="title" href="/posts/60184.html" title="学习逆向过程中的一些问题与其解决办法">学习逆向过程中的一些问题与其解决办法</a><time datetime="2023-12-25T08:59:43.000Z" title="发表于 2023-12-25 08:59:43">2023-12-25</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2024 By <a class="footer-bar-link" href="/" title="Alan Hays" target="_blank">Alan Hays</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">3</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://alanhays.gitee.io/facelessjsvmp/" title="facelessjsvmp"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://imgsrc.baidu.com/forum/pic/item/9213b07eca806538fb58ba27d1dda144ad348250.png" alt="facelessjsvmp"/><span class="back-menu-item-text">facelessjsvmp</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">博客</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://alanhays.gitee.io" title="Faceless Blog"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://imgsrc.baidu.com/forum/pic/item/9213b07eca806538fb58ba27d1dda144ad348250.png" alt="Faceless Blog"/><span class="back-menu-item-text">Faceless Blog</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AST/" style="font-size: 0.88rem;">AST<sup>3</sup></a><a href="/tags/Actions/" style="font-size: 0.88rem;">Actions<sup>2</sup></a><a href="/tags/GitHub/" style="font-size: 0.88rem;">GitHub<sup>3</sup></a><a href="/tags/JA3/" style="font-size: 0.88rem;">JA3<sup>1</sup></a><a href="/tags/JA4/" style="font-size: 0.88rem;">JA4<sup>1</sup></a><a href="/tags/Native/" style="font-size: 0.88rem;">Native<sup>1</sup></a><a href="/tags/SO/" style="font-size: 0.88rem;">SO<sup>1</sup></a><a href="/tags/TLS-SSL/" style="font-size: 0.88rem;">TLS/SSL<sup>2</sup></a><a href="/tags/andorid/" style="font-size: 0.88rem;">andorid<sup>1</sup></a><a href="/tags/build/" style="font-size: 0.88rem;">build<sup>1</sup></a><a href="/tags/charles/" style="font-size: 0.88rem;">charles<sup>1</sup></a><a href="/tags/fastboot/" style="font-size: 0.88rem;">fastboot<sup>1</sup></a><a href="/tags/frida/" style="font-size: 0.88rem;">frida<sup>3</sup></a><a href="/tags/hexo/" style="font-size: 0.88rem;">hexo<sup>1</sup></a><a href="/tags/jnitrace/" style="font-size: 0.88rem;">jnitrace<sup>1</sup></a><a href="/tags/magisk/" style="font-size: 0.88rem;">magisk<sup>2</sup></a><a href="/tags/nodejs/" style="font-size: 0.88rem;">nodejs<sup>1</sup></a><a href="/tags/objection/" style="font-size: 0.88rem;">objection<sup>1</sup></a><a href="/tags/root/" style="font-size: 0.88rem;">root<sup>1</sup></a><a href="/tags/windows/" style="font-size: 0.88rem;">windows<sup>1</sup></a><a href="/tags/%E5%85%A5%E9%97%A8%E7%BA%A7/" style="font-size: 0.88rem;">入门级<sup>2</sup></a><a href="/tags/%E5%8A%A0%E9%80%9F%E4%B9%90/" style="font-size: 0.88rem;">加速乐<sup>1</sup></a><a href="/tags/%E6%80%9D%E8%B7%AF/" style="font-size: 0.88rem;">思路<sup>1</sup></a><a href="/tags/%E6%8A%93%E5%8C%85/" style="font-size: 0.88rem;">抓包<sup>1</sup></a><a href="/tags/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/" style="font-size: 0.88rem;">疑难杂症<sup>1</sup></a><a href="/tags/%E8%A7%A3%E6%B7%B7%E6%B7%86/" style="font-size: 0.88rem;">解混淆<sup>3</sup></a><a href="/tags/%E8%AF%81%E4%B9%A6/" style="font-size: 0.88rem;">证书<sup>1</sup></a><a href="/tags/%E8%B5%84%E6%BA%90/" style="font-size: 0.88rem;">资源<sup>1</sup></a></div></div><hr/></div></div><div id="keyboard-tips"><div class="keyboardTitle">博客快捷键</div><div class="keybordList"><div class="keybordItem"><div class="keyGroup"><div class="key">shift K</div></div><div class="keyContent"><div class="content">关闭快捷键功能</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift A</div></div><div class="keyContent"><div class="content">打开/关闭中控台</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift M</div></div><div class="keyContent"><div class="content">播放/暂停音乐</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift D</div></div><div class="keyContent"><div class="content">深色/浅色显示模式</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift S</div></div><div class="keyContent"><div class="content">站内搜索</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift R</div></div><div class="keyContent"><div class="content">随机访问</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift H</div></div><div class="keyContent"><div class="content">返回首页</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift F</div></div><div class="keyContent"><div class="content">友链鱼塘</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift L</div></div><div class="keyContent"><div class="content">友链页面</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift P</div></div><div class="keyContent"><div class="content">关于本站</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift I</div></div><div class="keyContent"><div class="content">原版/本站右键菜单</div></div></div></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="anzhiyufont anzhiyu-icon-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'xxxxx',
+      appKey: 'xxxxx',
+      avatar: 'mp',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.cbd.int/valine@1.5.1/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) anzhiyu.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><input type="hidden" name="page-type" id="page-type" value="post"></div><script async data-pjax src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.1/bubble/bubble.js"></script><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><script src="/js/anzhiyu/right_click_menu.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
